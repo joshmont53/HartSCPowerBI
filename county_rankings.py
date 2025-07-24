@@ -55,11 +55,16 @@ for gender, age, event_name, event_id, web_link in urls:
         continue  # Skip if no table is found
 
     # Extract table rows (skip headers)
+    row_count = 0
     for row in table.find_all("tr")[1:]:  # Skip the header row
         cells = [td.text.strip() for td in row.find_all("td")]
         if cells:
             cells.extend([gender, age, event_name])  # Append gender, age, event
             all_data.append(cells)
+            row_count += 1
+
+    # Print success message with row count
+    print(f"Successfully processed {event_name} ({gender}, {age}) - {row_count} records added")
 
 # Define column names
 column_names = ["Ranking", "Name", "Club", "YOB", "Meet", "Venue", "Level", "Date", "Time", "FINA", "Gender", "Age",
@@ -72,7 +77,8 @@ df_final = pd.DataFrame(all_data, columns=column_names)
 df_final["Time"] = df_final["Time"].apply(converted_time)
 
 # Export DataFrame to Excel
-csv_filename = "/Swim Manager Downloads/swim_rankings.csv"
+csv_filename = "/Users/joshmontgomery/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Swimming/Hart PowerBI Report/Python Scripts/Clean Data/county_rankings.csv"
 df_final.to_csv(csv_filename, index=False)
 
 print(f"Data successfully saved to {csv_filename}")
+
