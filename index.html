@@ -9,7 +9,48 @@
       padding: 0;
       height: 100%;
       background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
     }
+
+    #login {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    #dashboard {
+      display: none;
+      height: 100vh;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      border: none;
+      background-color: #0055a5;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0077e6;
+    }
+
     iframe {
       width: 98vw;
       height: 96vh;
@@ -19,15 +60,51 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
   </style>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      const correct = 'HartSC2025';  // password set here
+      if (input === correct) {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+      } else {
+        alert('Incorrect password. Please try again.');
+        document.getElementById('password').value = '';
+      }
+    }
+
+    // Allow pressing Enter to submit
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('password');
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          checkPassword();
+        }
+      });
+    });
+  </script>
 </head>
+
 <body>
-  <iframe
-    title="Hart SC Data Universe"
-    src="https://app.powerbi.com/view?r=eyJrIjoiNTEzZTI5NWItN2QwYi00MTNiLTllM2EtNzRkY2I3YWNjNTE5IiwidCI6ImQ5ODFlZDVkLWM3ODktNDRjNC05ZjA0LTgxYjU0ZTA0NTgxOCJ9&navContentPaneEnabled=false"
-    allowFullScreen="true">
-  </iframe>
+  <!-- Password screen -->
+  <div id="login">
+    <h2>Enter Password to Access the Hart SC Data Universe</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <!-- Dashboard view -->
+  <div id="dashboard">
+    <iframe
+      title="Hart SC Data Universe"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNTEzZTI5NWItN2QwYi00MTNiLTllM2EtNzRkY2I3YWNjNTE5IiwidCI6ImQ5ODFlZDVkLWM3ODktNDRjNC05ZjA0LTgxYjU0ZTA0NTgxOCJ9&navContentPaneEnabled=false"
+      allowfullscreen="true">
+    </iframe>
+  </div>
 </body>
 </html>
+
 
 
 
